@@ -1,0 +1,21 @@
+services:
+  nginx:
+    image: nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - flask
+  flask:
+    image: snickch/flask001:v2
+    container_name: flask
+    restart: always
+    expose:
+      - 5000
+    volumes:
+      - ./app:/app:ro
+    command: gunicorn -w 4 --bind 0.0.0.0:5000 wsgi:app
+    environment:
+      FLASK_APP: app.py
