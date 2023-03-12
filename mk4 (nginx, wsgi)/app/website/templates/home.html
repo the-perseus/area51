@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<!-- take the base html and change the block titel to Home -->
+<h1 align="center">Notes</h1>
+<ul class="list-group list-group-flush" id="notes">
+  {% for note in user.notes %}
+  <li class="list-group-item">
+    {{ note.data }}
+    <button type="button" class="close" onClick="deleteNote({{ note.id }})">  <!-- delete button function with java script (easy way) -->
+      <span aria-hidden="true">&times;</span> <!-- hidden for user -->
+    </button>
+  </li>
+  {% endfor %}
+  <!-- upper block: show the notes from the user -->
+</ul>
+<form method="POST"> <!-- send POST to create -->
+  <textarea name="note" id="note" class="form-control"></textarea> <!-- form -->
+  <br />
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Add Note</button>
+  </div>
+</form>
+{% endblock %}
+<!-- upper block: create note -->
