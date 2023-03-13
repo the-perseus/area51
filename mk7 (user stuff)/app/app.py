@@ -25,26 +25,34 @@ def home():
     else:
         return redirect("/login")
 
-@app.route("/register", methods=["GET", "POST"])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-    if request.method == "POST":
-        # Get form data
-        name = request.form["name"]
-        email = request.form["email"]
-        username = request.form["username"]
-        password = request.form["password"]
-        
-        # Save data to database
-        user = User(name=name, email=email, username=username, password=password)
-        db.session.add(user)
-        db.session.commit()
-        
-        # Store username in session
-        session["username"] = username
-        
-        return redirect("/")
-    else:
-        return render_template("register.html")
+    if request.method == 'POST':
+        try:
+            name = request.form['name']
+            email = request.form['email']
+            username = request.form['username']
+            password = request.form['password']
+
+            # check if the username already exists
+            user = User.query.filter_by(username=username).first()
+            if user:
+                flash('Username already exists', 'error')
+                return redirect(url_for('register'))
+
+            # create a new user
+            new_user = User(name=name, email=email, username=username, password=password)
+            db.session.add(new_user)
+            db.session.commit()
+
+            flash('Registration successful. Please log in.', 'success')
+            return redirect(url_for('login'))
+        except Exception as e:
+            flash(f'Registration failed. Error message: {str(e)}', 'error')
+            return redirect(url_for('register'))
+
+    return render_template('register.html')
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
