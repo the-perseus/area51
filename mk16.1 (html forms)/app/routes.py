@@ -65,5 +65,4 @@ def register():
 @app.route('/logbook')
 @login_required
 def logbook():
-    title = "Logbook"
-    return render_template('logbook.html', title='Logbook', title=title)
+    return render_template('logbook.html')
