@@ -65,4 +65,4 @@ def register():
 @app.route('/logbook')
 @login_required
 def logbook():
-    return render_template('logbook.html')
+    return render_template('logbook.html', form=form)
