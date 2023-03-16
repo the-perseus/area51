@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="container">
+		<h1>Logbook</h1>
+		<br/>
+		<form action="/logbook" METHOD="POST">
+			<input type="text" placeholder="Location" name="location">
+			<input type="submit" value="Submit" class="btn btn-secondary">
+		</form>
+	</div>
+{% endblock %}
