@@ -1,5 +1,5 @@
-#!/bin/bash
-#source venv/bin/activate
+!/bin/bash
+source venv/bin/activate
 #flask db init
 #flask db migrate
 while true; do
